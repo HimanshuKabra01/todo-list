@@ -1,4 +1,4 @@
-let todoList = [];
+let todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 
 function addTodo() {
   const inputElement = document.querySelector('.js-todo-input');
@@ -32,7 +32,7 @@ function renderTodoList() {
     <div class="todo-list-row">
       <div>${name}</div>
       <div>${dueDate}</div>
-      <button onclick="deleteTodo(${i});" class="delete-button">Delete</button>
+      <button onclick="deleteTodo(${i}); saveToStorage();" class="delete-button">Delete</button>
     </div>`
     todoListHTML += html;
   }
@@ -45,4 +45,8 @@ function renderTodoList() {
 function deleteTodo(index) {
   todoList.splice(index, 1);
   renderTodoList();
+}
+
+function saveToStorage() {
+  localStorage.setItem('todoList', JSON.stringify(todoList));
 }
